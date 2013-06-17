@@ -255,11 +255,11 @@ class Resource(object):
         """
         urlparts = urlsplit(url)
         if urlparts.scheme != 'https':
-            connection = http_client.HTTPConnection(urlparts.netloc)
+            connection = http_client.HTTPConnection(urlparts.netloc, timeout=120)
         elif recurly.CA_CERTS_FILE is None:
-            connection = http_client.HTTPSConnection(urlparts.netloc)
+            connection = http_client.HTTPSConnection(urlparts.netloc, timeout=120)
         else:
-            connection = _ValidatedHTTPSConnection(urlparts.netloc)
+            connection = _ValidatedHTTPSConnection(urlparts.netloc, timeout=120)
 
         headers = {} if headers is None else dict(headers)
         headers.update({
